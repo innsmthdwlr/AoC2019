@@ -35,7 +35,6 @@ def calculate_manhattan(point, origin = (0,0)):
 def traverse_to(circuit, destination_coords):
     step = 0
     previous_point = (0, 0)
-    lines = []
     destination = Point(destination_coords)
     for point in circuit[1:]:
         line = LineString([previous_point, point])
