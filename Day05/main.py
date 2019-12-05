@@ -1,10 +1,4 @@
 import os
-    
-def reset_input(program_input, noun, verb):
-  reset = program_input[:]
-  reset[1] = noun
-  reset[2] = verb
-  return reset
 
 def read(program_input, param, mode):
   if mode == '0':
@@ -17,13 +11,7 @@ def get_params(program_input, pointer, first_param_mode, second_param_mode):
 
   try:
     first_param = read(program_input, program_input[pointer+1], first_param_mode)
-  except IndexError:
-    pass
-  try:
     second_param = read(program_input, program_input[pointer+2], second_param_mode)
-  except IndexError:
-    pass
-  try:
     write_to = program_input[pointer+3]  
   except IndexError:
     pass
@@ -35,9 +23,7 @@ def run_program(program_input, system_id):
   buffer = system_id
 
   while instruction[-2:] != '99':
-    opcode = instruction[-2:]
-    first_param_mode = instruction[2]
-    second_param_mode = instruction[1]
+    opcode, first_param_mode, second_param_mode = instruction[-2:], instruction[2], instruction[1]
     first_param, second_param, write_to = get_params(program_input, pointer, first_param_mode, second_param_mode)
 
     if opcode == '01':
