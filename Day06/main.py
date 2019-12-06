@@ -3,7 +3,7 @@ import networkx as nx
 
 if __name__ == '__main__':
     with open(f'{os.path.dirname(os.path.realpath(__file__))}/input.txt', 'r') as reader:
-        puzzle_input = [(x[0:3], x[4:]) if x[3] == '()' else (x[4:], x[0:3]) for x in [coord for coord in reader.read().splitlines()]]
+        puzzle_input = [(x[0:3], x[4:]) if x[3] == ')' else (x[4:], x[0:3]) for x in [coord for coord in reader.read().splitlines()]]
 
     orbit_map = nx.DiGraph(puzzle_input)
     part1 = sum(len(nx.ancestors(orbit_map, n)) for n in orbit_map.nodes)
