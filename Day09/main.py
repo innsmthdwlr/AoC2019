@@ -1,6 +1,4 @@
 import os
-from itertools import permutations
-import math
 
 class IntcodeComputer:
 
