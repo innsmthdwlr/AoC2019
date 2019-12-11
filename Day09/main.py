@@ -4,6 +4,7 @@ class IntcodeComputer:
 
   def __init__(self, program_input, phase_setting=None):
     self.program_input = program_input[:]
+    self.program_input.extend([0]*10000)
     self.pointer = 0
     self.relative_base = 0
     self.memory = []
@@ -53,15 +54,16 @@ class IntcodeComputer:
         self.__write__(3, value, third_param_mode)
         self.pointer += 4
       elif opcode == '03':
-        print(f"input signal: {self.memory}")
+        #print(f"input signal: {self.memory}")
         value = self.memory.pop(0)
         self.__write__(1, value, first_param_mode)
         self.pointer += 2
       elif opcode == '04':
         value = self.program_input[first_param]
-        print(f"coordinates: {value}")
+        #print(f"coordinates: {value}")
         self.memory.append(value)
         self.pointer += 2
+        return self.memory
       elif opcode == '05':
         if self.program_input[first_param] != 0:
           self.pointer = self.program_input[second_param]
@@ -92,14 +94,17 @@ class IntcodeComputer:
         break
 
       instruction = str(self.program_input[self.pointer]).zfill(5)
+    #return self.memory
 
 if __name__ == '__main__':
     with open(f'{os.path.dirname(os.path.realpath(__file__))}/input.txt', 'r') as reader:
         puzzle_input = [int(value) for value in reader.read().split(',')]
-    puzzle_input.extend([0]*10000)
     
     computer = IntcodeComputer(puzzle_input)
     part1 = computer.run_program(1)
     
     computer = IntcodeComputer(puzzle_input)
     part2 = computer.run_program(2)
+
+    print(part1)
+    print(part2)
